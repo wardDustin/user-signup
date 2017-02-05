@@ -3,7 +3,7 @@ import cgi
 import re
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
-PASS_RE = re.compile(r"^.{3,20}$")
+PASS_RE = re.compile(r"^(?=.*[A-Z])(?=.*[!@#$&%^*()])(?=.*[0-9])(?=.*[a-z]).{7,32}$")
 EMAIL_RE = re.compile(r"^[\S]+@[\S]+.[\S]+$")
 
 def valid_username(username):
@@ -102,7 +102,7 @@ class Index(webapp2.RequestHandler):
 			username_error = "{0} is not a valid username!".format(cgi.escape(username, quote=True))
 
 		if not password_validate:
-			password_error = "Not a valid password!"
+			password_error = "A safe password must contain one lowercase, uppercase, special character and number. It also must be between 7 and 32 characters"
 
 		if not verify_validate:
 			verification_error = "Your passwords do not match!"
